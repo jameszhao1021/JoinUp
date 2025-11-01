@@ -2,9 +2,9 @@ interface Activity  {
     id: string;
     title:string;
     date: Date;
-    Description:string;
+    description:string;
     category:string;
-    IsCancelled: boolean;
+    isCancelled: boolean;
     city: string;
     venue: string;
     latitude: number;

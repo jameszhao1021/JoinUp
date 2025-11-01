@@ -1,7 +1,17 @@
 import { Group } from "@mui/icons-material";
 import { AppBar, Box, Button, Container, MenuItem, Toolbar, Typography,  } from "@mui/material";
 
-export default function NavBar() {
+interface Props {
+     createFormDisplay: boolean;
+     setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+     allowCreateFormDisplay: (id?: string | undefined) => void;
+  }
+  
+
+
+export default function NavBar({allowCreateFormDisplay}: Props){
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" sx={{backgroundImage: 'linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)'}}>
@@ -24,7 +34,7 @@ export default function NavBar() {
                        </MenuItem>
                    </Box>
                            
-                   <Button size="large" variant='contained' color='warning'>Create Activity</Button>             
+                   <Button size="large" variant='contained' color='warning' onClick={()=>allowCreateFormDisplay()}>Create Activity</Button>             
                 </Toolbar>
             </Container>
            

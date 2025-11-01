@@ -3,14 +3,17 @@ import ActivityCard from './ActivityCard';
 
 interface Props {
     activities: Activity[];
+    setSelectCard: React.Dispatch<React.SetStateAction<string>>;
+    setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
 
-const ActivityList = ({activities}:Props) => {
+const ActivityList = ({activities, setSelectCard, setCreateFormDisplay}:Props) => {
   return (
     <Box sx={{display:'flex', flexDirection:'column', gap:3}}>
 
            {activities.map(activity=>(
-          <ActivityCard key={activity.id} activity={activity}/>
+          <ActivityCard key={activity.id} activity={activity} setSelectCard={setSelectCard} setCreateFormDisplay={setCreateFormDisplay}/>
         ))}
     </Box>
   )
