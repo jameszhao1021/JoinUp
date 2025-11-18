@@ -1,18 +1,17 @@
-import  { Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import  { Box, Button, Card, CardActions, CardContent, Chip, Typography } from "@mui/material";
+import { useActivities } from "../../../lib/hooks/useActivities";
+import { Link } from "react-router";
 
 interface Props {
     activity: Activity;
-    setSelectCard : React.Dispatch<React.SetStateAction<string>>;
-    setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+    
 }
 
-const ActivityCard = ({activity, setSelectCard, setCreateFormDisplay}:Props) => {
+const ActivityCard = ({activity}:Props) => {
 
-  function showDetial(index:string):void {
-    setCreateFormDisplay(false);
-    setSelectCard(index);
-  }
 
+
+  const {deleteActivity} = useActivities();
   return (
     <Card sx={{borderRadius: 3}}>
         <CardContent>
@@ -23,7 +22,11 @@ const ActivityCard = ({activity, setSelectCard, setCreateFormDisplay}:Props) => 
         </CardContent>
         <CardActions sx={{display:'flex', justifyContent:'space-between', pb: 2}}>
             <Chip label={activity.category} variant="outlined"/>
-            <Button size='medium' variant="contained" onClick={()=>{showDetial(activity.id)}}>View</Button>
+            <Box display='flex' gap={1}>
+              <Button size='medium' variant="contained" component={Link} to={`/activities/${activity.id}`} >View</Button>
+              <Button size='medium' variant="contained" color='error' disabled={deleteActivity.isPending} onClick={()=>{deleteActivity.mutate(activity.id)}}>Delete</Button>
+
+            </Box>
         </CardActions>
     </Card>
   )

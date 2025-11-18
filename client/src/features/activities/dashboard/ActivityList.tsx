@@ -1,19 +1,20 @@
-import  { Box} from '@mui/material'
+import  { Box, Typography} from '@mui/material'
 import ActivityCard from './ActivityCard';
+import { useActivities } from '../../../lib/hooks/useActivities';
 
-interface Props {
-    activities: Activity[];
-    setSelectCard: React.Dispatch<React.SetStateAction<string>>;
-    setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
 
-}
+const ActivityList = () => {
+  
+  const {activities, isPending} = useActivities();
 
-const ActivityList = ({activities, setSelectCard, setCreateFormDisplay}:Props) => {
+  if(!activities || isPending) return (
+    <Typography>Loading...</Typography>
+  )
+  
   return (
     <Box sx={{display:'flex', flexDirection:'column', gap:3}}>
-
            {activities.map(activity=>(
-          <ActivityCard key={activity.id} activity={activity} setSelectCard={setSelectCard} setCreateFormDisplay={setCreateFormDisplay}/>
+          <ActivityCard key={activity.id} activity={activity}/>
         ))}
     </Box>
   )

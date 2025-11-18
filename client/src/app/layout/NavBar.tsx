@@ -1,15 +1,11 @@
 import { Group } from "@mui/icons-material";
-import { AppBar, Box, Button, Container, MenuItem, Toolbar, Typography,  } from "@mui/material";
-
-interface Props {
-     createFormDisplay: boolean;
-     setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-     allowCreateFormDisplay: (id?: string | undefined) => void;
-  }
-  
+import { AppBar, Box, Container, MenuItem, Toolbar, Typography,  } from "@mui/material";
+import { NavLink } from "react-router";
+import MenuItemLink from "./shared/components/MenuItemLink";
 
 
-export default function NavBar({allowCreateFormDisplay}: Props){
+
+export default function NavBar(){
 
 
   return (
@@ -17,24 +13,23 @@ export default function NavBar({allowCreateFormDisplay}: Props){
         <AppBar position="static" sx={{backgroundImage: 'linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac 89%)'}}>
             <Container maxWidth='xl'>
                 <Toolbar sx={{display:'flex', justifyContent:'space-between'}}>
-                   <MenuItem sx={{display:'flex', gap:2}}>
+                   <MenuItem component={NavLink} to ='/' sx={{display:'flex', gap:2}}>
                          <Group sx={{fontSize:'large'}}/>
                          <Typography variant="h4" fontWeight='bold'>JoinUp</Typography>
                    </MenuItem>
                    <Box sx={{display:'flex'}}>
 
-                        <MenuItem sx={{fontSize: '1.2rem', textTransform:'uppercase', fontWeight: 'bold'}}>
+                        <MenuItemLink to ='/activities'>
                           Activities
-                       </MenuItem>
-                       <MenuItem sx={{fontSize: '1.2rem', textTransform:'uppercase', fontWeight: 'bold'}}>
-                          About
-                       </MenuItem>
-                        <MenuItem sx={{fontSize: '1.2rem', textTransform:'uppercase', fontWeight: 'bold'}}>
-                          Contact
-                       </MenuItem>
+                       </MenuItemLink>
+                       <MenuItemLink to ='/createActivity'>
+                          Create Activity
+                       </MenuItemLink>
+                 
                    </Box>
-                           
-                   <Button size="large" variant='contained' color='warning' onClick={()=>allowCreateFormDisplay()}>Create Activity</Button>             
+                      <MenuItem>
+                      User menu
+                      </MenuItem>
                 </Toolbar>
             </Container>
            

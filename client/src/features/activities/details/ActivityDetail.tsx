@@ -1,14 +1,21 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Link, useNavigate, useParams } from 'react-router';
+import { useActivities } from '../../../lib/hooks/useActivities';
 
-interface Props {
-    activity: Activity;
-    setSelectCard: React.Dispatch<React.SetStateAction<string>>;
-    allowCreateFormDisplay: (id?: string | undefined) => void;
-    setCreateFormDisplay: React.Dispatch<React.SetStateAction<boolean>>;
-    cancelSelectCard: ()=>void;
-}
 
-export default function ActivityDetail({activity, allowCreateFormDisplay, cancelSelectCard}:Props) {
+
+export default function ActivityDetail() {
+const navigate = useNavigate();
+
+const {id} = useParams() ;
+
+
+
+const {activity, isLoadingActivity} = useActivities(id);
+
+if (isLoadingActivity)return <Typography>Loading...</Typography>
+
+if (!activity)return <Typography>Activity not found</Typography>
 
 
   return (
@@ -24,9 +31,8 @@ export default function ActivityDetail({activity, allowCreateFormDisplay, cancel
                   <Typography variant='body1'>{activity.description}</Typography>                 
               </CardContent>
               <CardActions>
-                 <Button color='primary' onClick={()=>allowCreateFormDisplay(activity.id)}>Edit</Button>
-                <Button color='inherit' onClick={cancelSelectCard}>Cancel</Button>
-
+                 <Button component={Link} to={`/manage/${activity.id}`} color='primary'>Edit</Button>
+                <Button color='inherit' onClick={()=>navigate('/activities')}>Cancel</Button>
               </CardActions>
         </Card>
     </div>
