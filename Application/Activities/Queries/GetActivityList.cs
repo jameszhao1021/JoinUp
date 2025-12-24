@@ -1,9 +1,11 @@
 using System;
+using Application.Core;
 using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 namespace Application.Activities.Queries;
+
 
 public class GetActivityList
 {
@@ -16,4 +18,5 @@ public class GetActivityList
         }
     }
 }
+
 
