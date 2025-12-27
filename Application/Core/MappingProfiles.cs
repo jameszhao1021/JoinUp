@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 using Application.Activities.DTOs;
 using AutoMapper;
 using Domain;
@@ -9,8 +7,9 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Domain.Activity, Domain.Activity>();
-        CreateMap<CreateActivityDTO, Domain.Activity>();
+        CreateMap<Activity, Activity>();
+        CreateMap<CreateActivityDTO, Activity>();
+        CreateMap<EditActivityDTO, Activity>();
 
     }
 }
