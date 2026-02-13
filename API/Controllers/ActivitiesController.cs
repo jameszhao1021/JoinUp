@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Activities.Queries;
 using Application.Activities.Commands;
 using Application.Activities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -13,6 +14,7 @@ namespace API.Controllers
     {
 
         [HttpGet]
+        
         public async Task<ActionResult<List<Activity>>> GetActivities()
         {
             var activities = await Mediator.Send(new GetActivityList.Query());
@@ -20,6 +22,7 @@ namespace API.Controllers
             return Ok(activities);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
 
         //old approach
