@@ -1,5 +1,4 @@
 
-import { TextFieldProps } from "@mui/material";
 import {
   useController,
   UseControllerProps,
@@ -8,7 +7,7 @@ import {
 import { DateTimePicker, DateTimePickerProps } from '@mui/x-date-pickers'
 
 
-type Props<T extends FieldValues> = {} & UseControllerProps<T> & DateTimePickerProps<Date>
+type Props<T extends FieldValues> = {} & UseControllerProps<T> & DateTimePickerProps
 
 export default function DateTimeInput<T extends FieldValues>(props: Props<T>) {
     const {field, fieldState} = useController({...props});

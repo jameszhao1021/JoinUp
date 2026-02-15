@@ -28,13 +28,13 @@ export default function NavBar(){
                        <MenuItemLink to ='/createActivity'>
                           Create Activity
                        </MenuItemLink>
-                         <MenuItemLink to ='/counter'>
+                         {/* <MenuItemLink to ='/counter'>
                           Counter
                        </MenuItemLink>
                         
                          <MenuItemLink to ='/errors'>
                           Errors
-                       </MenuItemLink>
+                       </MenuItemLink> */}
                    </Box>
                       <MenuItem>
                       User menu

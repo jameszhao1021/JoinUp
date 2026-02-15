@@ -2,7 +2,6 @@ import { CalendarToday, Info, Place } from "@mui/icons-material";
 import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
 import { formatDate } from "../../../lib/types/util/util";
 import { Activity } from "../../../lib/types";
-import { useSVGOverlay } from "react-leaflet/SVGOverlay";
 import MapComponent from "../../../app/layout/shared/components/MapComponent";
 import { useState } from "react";
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class ActivitiesController : BaseApiController
@@ -22,7 +23,7 @@ namespace API.Controllers
             return Ok(activities);
         }
 
-        [Authorize]
+       
         [HttpGet("{id}")]
 
         //old approach

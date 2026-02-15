@@ -1,8 +1,8 @@
-import  { Paper, Typography, Box, TextField, Button } from "@mui/material"
-import { useEffect, type FormEvent } from "react";
+import  { Paper, Typography, Box, Button } from "@mui/material"
+import { useEffect } from "react";
 import { useActivities } from "../../../lib/hooks/useActivities";
 import { useNavigate, useParams } from "react-router";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
 import { activitySchema, ActivitySchema } from "../../../lib/schemas/activitySchema";
 import {zodResolver} from '@hookform/resolvers/zod'
 import TextInput from "../../../app/layout/shared/components/TextInput";
@@ -10,13 +10,20 @@ import SelectInput from "../../../app/layout/shared/components/SelectInput";
 import { categoryOptions } from "./categoryOptions";
 import DateTimeInput from "../../../app/layout/shared/components/DateTimeInput";
 import LocationInput from "../../../app/layout/shared/components/LocationInput";
+import { Activity } from "../../../lib/types";
 
 const ActivityForm = () => {
 
 
-const {register, control, reset, handleSubmit, formState:{errors}} = useForm<ActivitySchema>({
-  mode: 'onTouched', 
-  resolver: zodResolver(activitySchema)
+// const {register, control, reset, handleSubmit, formState:{errors}} = useForm<ActivitySchema>({
+//   mode: 'onTouched', 
+//   resolver: zodResolver(activitySchema)
+// });
+
+
+const { control, reset, handleSubmit } = useForm<ActivitySchema>({
+  mode: "onTouched",
+  resolver: zodResolver(activitySchema) as Resolver<ActivitySchema>,
 });
 
  const navigate = useNavigate();
@@ -70,7 +77,7 @@ const onSubmit =  async(data: ActivitySchema) =>{
       onSuccess:()=>navigate(`/activities/${activity.id}`)
     })
    } else {
-    createActivity.mutate(flattenedData,{
+      createActivity.mutate(flattenedData as Activity,{
       onSuccess: (id) => navigate(`/activities/${id}`)
     })
    }
@@ -121,4 +128,15 @@ if(isLoadingActivity) return <Typography>Loading activity...</Typography>
 }
 
 export default ActivityForm
+
+
+
+
+
+
+
+
+
+
+
 
