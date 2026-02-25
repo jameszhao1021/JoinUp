@@ -1,8 +1,10 @@
 import { Group } from '@mui/icons-material'
 import { Box, Button, Paper, Typography } from '@mui/material'
-import { Link } from 'react-router'
+import { Link } from "react-router";
 
 export default function HomePage() {
+
+
   return (
    <Paper
    
@@ -33,9 +35,12 @@ export default function HomePage() {
        <Typography variant='h2'>
       Welcome to JoinUp
     </Typography>
-    <Button component={Link} to='/activities' size='large' variant='contained' sx={{height: 80, borderRadius:4, fontSize:'1.5rem'}}>
-      Take me to the activities!
-    </Button>
+  
+    <Button 
+        component={Link} to='/activities' size='large' variant="contained" 
+        sx={{height: 80, borderRadius: 4, fontSize: '1.5rem'}}>
+        Take me to the activities!
+      </Button>
    </Paper>
 
 

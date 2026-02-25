@@ -1,14 +1,38 @@
-import { Group } from "@mui/icons-material";
-import { AppBar, Box, Container, LinearProgress, MenuItem, Toolbar, Typography,  } from "@mui/material";
-import { NavLink } from "react-router";
-import MenuItemLink from "./shared/components/MenuItemLink";
+import { Add, Group, Logout, Person } from "@mui/icons-material";
+import { AppBar, Avatar, Box, Container, LinearProgress, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography,  } from "@mui/material";
+import { Link, NavLink } from "react-router";
 import { useStore } from "../../lib/hooks/useStore";
 import { Observer } from "mobx-react-lite";
-
-
+import { useUsers } from "../../lib/hooks/useUsers";
+import { useNavigate } from "react-router";
+import { useState } from "react";
 
 export default function NavBar(){
+  const navigate = useNavigate();
   const {uiStore} = useStore()
+const {users, logoutUser} = useUsers();
+
+
+const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+ const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+const onSubmit =  async() =>{
+ try{
+  
+      handleClose();
+      logoutUser.mutate(undefined,{
+      onSuccess: () => navigate(``),
+    })
+   }
+ catch(error){
+  console.log(error)
+ }
+}
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -22,23 +46,62 @@ export default function NavBar(){
                    </MenuItem>
                    <Box sx={{display:'flex'}}>
 
-                        <MenuItemLink to ='/activities'>
+                        {/* <MenuItemLink  to={users?.email ? "/activities" : "/loginPage"} >
                           Activities
                        </MenuItemLink>
-                       <MenuItemLink to ='/createActivity'>
+                       <MenuItemLink to={users?.email ? "/createActivity" : "/loginPage"}>
                           Create Activity
-                       </MenuItemLink>
-                         {/* <MenuItemLink to ='/counter'>
-                          Counter
-                       </MenuItemLink>
-                        
-                         <MenuItemLink to ='/errors'>
-                          Errors
                        </MenuItemLink> */}
+                        
                    </Box>
-                      <MenuItem>
-                      User menu
-                      </MenuItem>
+
+  
+
+      {users && (
+      <MenuItem onClick={handleOpen}>
+              <Box display='flex' alignItems='center' gap={2}>
+                <Avatar />
+                {users?.displayName}
+              </Box>
+            </MenuItem>
+      )}
+ 
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        
+ <MenuItem  component={Link} to={'/createActivity'} onClick={handleClose}>
+           <ListItemIcon>
+            <Add />
+           </ListItemIcon>
+           <ListItemText>
+                 Create Activity
+
+           </ListItemText>
+           
+           </MenuItem>
+
+       <MenuItem  component={Link} to={'/profile'} onClick={handleClose}>
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
+              <ListItemText>
+                    My profile
+              </ListItemText>
+           </MenuItem>
+
+      <MenuItem  onClick={onSubmit}>
+           <ListItemIcon>
+               <Logout />
+           </ListItemIcon>
+           <ListItemText>
+                 Logout
+           </ListItemText>
+           </MenuItem>
+            </Menu>
+         
                 </Toolbar>
             </Container>
            <Observer>

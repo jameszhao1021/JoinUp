@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using API.DTOs;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace API.Controllers;
 
 public class AccountController(SignInManager<User> signInManager) : BaseApiController
-{
+{ 
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult> RegisterUser(RegisterDto registerDto){
@@ -46,6 +47,26 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
             user.Id,
             user.ImageUrl
         });
+    }
+
+     [AllowAnonymous]
+     [HttpGet("email-exists")]
+    public async Task<ActionResult> CheckEmailExistence([FromQuery] string email)
+    {
+        var user = await signInManager.UserManager.FindByEmailAsync(email);
+        if (user!=null)
+        {    
+            return Conflict("Email already exists");
+
+        }
+        else
+        {
+      return Ok(new
+        {
+            user?.Email,
+        });
+        }
+       
     }
 
 

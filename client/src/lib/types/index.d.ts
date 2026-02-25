@@ -11,7 +11,7 @@ interface Activity  {
     longitude: number;
   }
 
-  export interface LocationIQSuggestion {
+export interface LocationIQSuggestion {
   place_id: string
   osm_id: string
   osm_type: string
@@ -42,3 +42,15 @@ export interface LocationIQAddress {
     country_code: string
     neighbourhood?: string
 }
+
+interface User {
+    displayName: string;
+    email: string;
+    password: string;
+    imageUrl?: string
+  }
+
+interface LoginUser {
+    email: string;
+    password: string;
+  }
