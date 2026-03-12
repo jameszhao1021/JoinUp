@@ -64,7 +64,7 @@ const color = isHost? 'secondary': isGoing? 'warning':'default';
               <Button 
               size='medium' 
               variant="contained" 
-              component={Link} 
+              component={Link}        
               to={`/activities/${activity.id}`} 
               sx={{display:'flex', justifySelf:'self-end', borderRadius:3}}
               >

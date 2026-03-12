@@ -28,7 +28,7 @@ const ActivityFilters = () => {
         <Box component={Paper} sx={{width:'100%', p:3, borderRadius:3}}>
               <Typography variant="h6" sx={{display:'flex', alignItems:'center', mb:1, color:'primary.main'}}>
                    <Event sx={{mr:1}} />
-                   Select Dat      
+                   Select Date      
               </Typography>
               <Calendar />
  
