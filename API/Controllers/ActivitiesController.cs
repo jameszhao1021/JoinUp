@@ -53,13 +53,13 @@ namespace API.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = "IsActivityHost")]
-
         public async Task<ActionResult<string>> EditActivity(string id, EditActivityDTO activity)
         {
             activity.Id = id;
             var result = await Mediator.Send(new EditActivity.Command { ActivityDto = activity });
             return HandleResult(result);
         }
+
 
         [HttpDelete("{id}")]
          [Authorize(Policy = "IsActivityHost")]

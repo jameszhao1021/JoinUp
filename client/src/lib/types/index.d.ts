@@ -1,16 +1,28 @@
 interface Activity  {
-    id: string;
-    title:string;
-    date: Date;
-    description:string;
-    category:string;
-    isCancelled: boolean;
-    city: string;
-    venue: string;
-    latitude: number;
-    longitude: number;
+    id: string
+    title:string
+    date: Date
+    description:string
+    category:string
+    isCancelled: boolean
+    city: string
+    venue: string
+    latitude: number
+    longitude: number
+    attendees: Profile[]
+    isGoing: boolean
+    isHost: boolean
+    hostId: string
+    hostDisplayName: string
   }
 
+interface Profile {
+    id: string
+    displayName: string
+    bio?: string
+    imageUrl?: string
+  }
+  
 export interface LocationIQSuggestion {
   place_id: string
   osm_id: string

@@ -30,17 +30,19 @@ const { control, reset, handleSubmit } = useForm<ActivitySchema>({
 const {id} = useParams();
 const {updateActivity, createActivity, activity, isLoadingActivity} = useActivities(id);
 
-useEffect(()=>{
-  if(activity) reset({
-    ...activity,
-    location:{
-      city:activity.city,
-      venue: activity.venue,
-      latitude: activity.latitude,
-      longitude: activity.longitude
-    }
-  })
-},[activity, reset])
+useEffect(() => {
+        if (activity) {
+            reset({
+                ...activity,
+                location: {
+                    city: activity.city,
+                    venue: activity.venue,
+                    latitude: activity.latitude,
+                    longitude: activity.longitude
+                }
+            });
+        }
+    }, [activity, reset]);
 //  old approach
 
 // const handleSubmit = async (event: FormEvent<HTMLFormElement> ) =>{
@@ -67,25 +69,26 @@ useEffect(()=>{
 
 
 // new approach
-const onSubmit =  async(data: ActivitySchema) =>{
-  
- const {location, ...rest} = data;
- const flattenedData = {...rest,...location};
- try{
-   if (activity){
-    updateActivity.mutate({...activity, ...flattenedData}, {
-      onSuccess:()=>navigate(`/activities/${activity.id}`)
-    })
-   } else {
-      createActivity.mutate(flattenedData as Activity,{
-      onSuccess: (id) => navigate(`/activities/${id}`)
-    })
-   }
- }catch(error){
-  console.log(error)
- }
-  
-}
+    const onSubmit = async (data: ActivitySchema) => {
+        const { location, ...rest } = data;
+        const flattenedData = { ...rest, ...location };
+        try {
+            if (activity) {
+                updateActivity.mutate({ ...activity, ...flattenedData } as Activity, {
+                    onSuccess: () => navigate(`/activities/${activity.id}`)
+                });
+            } else {
+                createActivity.mutate(flattenedData as Activity, {
+                    onSuccess: (id) => {
+                        navigate(`/activities/${id}`);
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
 if(isLoadingActivity) return <Typography>Loading activity...</Typography>
 
