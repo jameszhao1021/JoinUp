@@ -34,29 +34,26 @@ public class UpdateAttendence
             if (attendence != null)
             {
                 if(attendence.IsHost == true){
-                    Console.WriteLine("有参与者 + 是主人");
+                    Console.WriteLine("There is attendee + is host");
                     activity.IsCancelled = !activity.IsCancelled;
                 }
                 else {
-                    Console.WriteLine("有参与者 + 不是主人");
-
+                    Console.WriteLine("There is attendee + isn't host");
                     activity.Attendees.Remove(attendence); 
                 }
             }
             else
             {
-                    Console.WriteLine("无参与者");
-              var attendee = new ActivityAttendee
-                {
-                    ActivityId = activity.Id,
-                    UserId = user.Id,
-                    IsHost = false
-                };
-
+                Console.WriteLine("No attendee");
+                var attendee = new ActivityAttendee
+                    {
+                        ActivityId = activity.Id,
+                        UserId = user.Id,
+                        IsHost = false
+                    };
                 activity.Attendees.Add(attendee);
             }
-                            
-
+                        
                 var result =  await context.SaveChangesAsync(cancellationToken) > 0;
                 return result?  Result<string>.Success(activity.Id)
                  : Result<string>.Failure("Problem updating the DB", 400)

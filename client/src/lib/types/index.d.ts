@@ -56,13 +56,13 @@ export interface LocationIQAddress {
 }
 
 interface User {
-    displayName: string;
-    email: string;
-    password: string;
+    displayName: string
+    email: string
+    password: string
     imageUrl?: string
   }
 
 interface LoginUser {
-    email: string;
-    password: string;
+    email: string
+    password: string
   }

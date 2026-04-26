@@ -27,7 +27,7 @@ if (!activity)return <Typography>Activity not found</Typography>
 
    </Grid>
     <Grid size={4}>
-       <ActivityDetailsSidebar/>
+       <ActivityDetailsSidebar activity = {activity}/>
    </Grid>
 </Grid>
   )

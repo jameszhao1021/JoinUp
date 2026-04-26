@@ -27,6 +27,7 @@ const {data: activities, isPending} = useQuery({
   }
 })
 
+
 const {data:activity,isLoading: isLoadingActivity} = useQuery({
   queryKey: ['activities', id],
   queryFn: async ()=>{
@@ -90,7 +91,48 @@ const deleteActivity = useMutation({
   }
 })
 
+const updateAttendance = useMutation({
+  mutationFn:async(id:string)=>{
+     await agent.post(`/activities/${id}/attend`)
+  },
+  // onSuccess: async()=>{
+  //   await queryClient.invalidateQueries({
+  //     queryKey:['activities', id]
+  //   })
+  // }
+  onMutate: async(activityId: string) =>{
+    await queryClient.cancelQueries({queryKey: ['activities', activityId]});
+    const prevActivity = queryClient.getQueryData<Activity>(['activities', activityId]);
+    queryClient.setQueryData<Activity>(['activities', activityId], oldActivity => {
+      if(!oldActivity || !users){
+        return oldActivity
+      }
+      const isHost = oldActivity.hostId === users.id;
+      const isAttending = oldActivity.attendees.some(x=>x.id === users.id);
+
+      return {
+        ...oldActivity,
+        isCancelled: isHost?!oldActivity.isCancelled:oldActivity.isCancelled,
+        attendees:isAttending?isHost?oldActivity.attendees:oldActivity.attendees.filter(x=>x.id !== users.id)
+        :[...oldActivity.attendees,{
+          id:users.id,
+          displayName:users.displayName,
+          imageUrl: users.imageUrl
+        }]
+      }
+    })
+
+    return {prevActivity}
+  },
+  onError: (error, activityId, context)=>{
+    console.log(error)
+    if(context?.prevActivity){
+      queryClient.setQueryData(['activities', activityId], context.prevActivity)
+    }
+  }
+})
+
  return {
-    activities, isPending, updateActivity, createActivity, deleteActivity, activity,isLoadingActivity
+    activities, isPending, updateActivity, createActivity, deleteActivity, activity,isLoadingActivity, updateAttendance
  }
 }
