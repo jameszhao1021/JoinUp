@@ -7,6 +7,8 @@ namespace Persistence;
 
 public class DbInitializer
 {
+
+
     public static async Task SeedData(AppDbContext context, UserManager<User> userManager)
     {
     var users = new List<User>

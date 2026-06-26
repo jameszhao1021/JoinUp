@@ -5,6 +5,8 @@ using Application.Activities.Queries;
 using Application.Activities.Commands;
 using Application.Activities.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using MediatR;
 
 namespace API.Controllers
 {
@@ -13,6 +15,7 @@ namespace API.Controllers
     [ApiController]
     public class ActivitiesController : BaseApiController
     {
+  
 
         [HttpGet]
         
@@ -22,8 +25,8 @@ namespace API.Controllers
             
             return Ok(activities);
         }
+   
 
-       
         [HttpGet("{id}")]
 
         //old approach
@@ -42,6 +45,7 @@ namespace API.Controllers
            
             return HandleResult(result);
         }
+ 
 
         [HttpPost]
 
@@ -68,6 +72,7 @@ namespace API.Controllers
            var result =  await Mediator.Send(new DeleteActivity.Command { Id = id });
            return HandleResult(result);
         }
+
 
         [HttpPost("{id}/attend")]
 
